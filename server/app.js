@@ -54,8 +54,17 @@ app.get('/createdb', (req, res) => {
 })
 
 app.get('/testresponse', async (req, res) => {
-    let test = 'QWERTYYYYY';
-    res.status(200).json(test);
+    let sql = `SELECT * FROM test`;
+    let queryResults;
+    db.query(sql, (error, results, fields) => {
+        if (error) {
+            return console.error(error.message);
+        }
+        queryResults = [results];
+        console.log(results);
+        res.send(results);
+    });
+
 })
 
 
