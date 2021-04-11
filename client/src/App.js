@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 import { scaleBand, scaleLinear, max } from 'd3';
-import BackgroundCircle from './components/BackgroundCircle';
-import Mouth from './components/Mouth';
+import PermanentDrawerLeft from './components/PermanentDrawerLeft';
 
 
 const App = () => {
@@ -34,6 +32,9 @@ const App = () => {
 
   return (
     <div>
+      <div>
+        <PermanentDrawerLeft data={data} />
+      </div>
       <ul>
         {data.map(row => <li key={row.id}>Country: {row.country}, Money: {row.money}</li>)}
       </ul>
