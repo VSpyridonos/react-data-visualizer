@@ -1,5 +1,8 @@
 import mysql.connector as mySQL
 
+global db
+db = 'test_data_viz'
+
 def database_config():
     db_connection = mySQL.connect(
         host = 'localhost',
@@ -10,6 +13,10 @@ def database_config():
     create_queries(cursor)
 
 def create_tables(cursor):
+    
+    cursor.execute(f"CREATE DATABASE {db};")
+    cursor.execute(f"USE {db};")
+
     countries_table = """
     CREATE TABLE `countries` (
     `country_id` int NOT NULL AUTO_INCREMENT,
@@ -60,33 +67,33 @@ def create_tables(cursor):
 
 def create_queries(cursor):
 
-    measures_table_query = """
+    measures_table_query = f"""
     LOAD DATA INFILE 'measures.csv' 
-    INTO TABLE test_viz_db.measures
+    INTO TABLE {db}.measures
     FIELDS TERMINATED BY '\t'
     LINES TERMINATED BY '\n'
     (measure_name);
     """
 
-    years_table_query = """
+    years_table_query = f"""
     LOAD DATA INFILE 'years.csv' 
-    INTO TABLE test_viz_db.years
+    INTO TABLE {db}.years
     FIELDS TERMINATED BY '\t'
     LINES TERMINATED BY '\n'
     (year_name);
     """
 
-    countries_table_query = """
+    countries_table_query = f"""
     LOAD DATA INFILE 'countries.csv' 
-    INTO TABLE test_viz_db.countries
+    INTO TABLE {db}.countries
     FIELDS TERMINATED BY '\t'
     LINES TERMINATED BY '\n'
     (country_name, country_3alpha_code, country_capital, country_region, country_population, country_flag);
     """
 
-    data_table_query = """
+    data_table_query = f"""
     LOAD DATA INFILE 'data.csv' 
-    INTO TABLE test_viz_db.data
+    INTO TABLE {db}.data
     FIELDS TERMINATED BY '\t'
     LINES TERMINATED BY '\n'
     (year_name, country_name, measure_value, measure_name);
