@@ -144,7 +144,7 @@ function ResponsiveDrawer({ window }) {
                         onChange={handleInput}
                     >
                         <option aria-label="None" value="" />
-                        <option value="Data set 1">Data set 1</option>
+                        <option value="Data set 1">Countries</option>
                         <option value="Data set 2">Data set 2</option>
                         <option value="Data set 3">Data set 3</option>
 
@@ -295,11 +295,11 @@ function ResponsiveDrawer({ window }) {
                     </svg>
                 </div>
 
-                <Typography paragraph>
+                {/* <Typography paragraph>
                     <List>
                         {data.map(row => <ListItem key={row.id}>Country: {row.country}, Money: {row.money}</ListItem>)}
                     </List>
-                </Typography>
+                </Typography> */}
 
 
 

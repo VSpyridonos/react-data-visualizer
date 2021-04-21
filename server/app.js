@@ -3,20 +3,6 @@ const express = require('express');
 const path = require('path');
 const mysql = require('mysql');
 const ejsMate = require('ejs-mate');
-
-
-let React = require('react');
-let ReactDOMServer = require('react-dom/server');
-
-// class MyComponent extends React.Component {
-//     render() {
-//         return (<div>Hello World</div>);
-//     }
-// }
-
-// ReactDOMServer.renderToString(<MyComponent />);
-
-
 const cors = require('cors');
 const app = express();
 app.engine('ejs', ejsMate);
@@ -43,16 +29,6 @@ db.connect((err) => {
 
 
 
-// Create db
-app.get('/createdb', (req, res) => {
-    let sql = 'CREATE DATABASE gap';
-    db.query(sql, (err, result) => {
-        if (err) throw err;
-        console.log(result);
-        res.send('Database created!')
-    })
-})
-
 app.get('/testresponse', async (req, res) => {
     let sql = `SELECT * FROM test`;
     let queryResults;
@@ -67,9 +43,19 @@ app.get('/testresponse', async (req, res) => {
 
 })
 
+app.get('/data/:countryName', async (req, res) => {
+    let countryName = req.params.countryName;
+    let countryQuery = `SELECT * FROM data WHERE country_name='${countryName}'`;
+    let queryResults;
+    db.query(sql, (error, results, fields) => {
+        if (error) {
+            return console.error(error.message);
+        }
+        queryResults = [results];
+        console.log(results);
+        res.send(results);
+    });
 
-app.get('/', (req, res) => {
-    res.render('index');
 })
 
 
